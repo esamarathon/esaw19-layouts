@@ -1,0 +1,23 @@
+{
+  "name": "esaw19-layouts",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esamarathon/esaw19-layouts.git"
+  },
+  "author": "zoton2",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/esamarathon/esaw19-layouts/issues"
+  },
+  "homepage": "https://github.com/esamarathon/esaw19-layouts#readme",
+  "nodecg": {
+    "compatibleRange": "^1.0.0",
+    "bundleDependencies": {
+      "nodecg-speedcontrol": "^1.0.0"
+    }
+  },
+  "dependencies": {
+    "ws": "^6.1.3"
+  }
+}
