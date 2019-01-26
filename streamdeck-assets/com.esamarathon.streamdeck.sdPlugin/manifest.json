@@ -1,0 +1,38 @@
+{
+  "Actions": [
+    {
+      "Icon": "icons/actionIcon",
+      "Name": "Number Display",
+      "States": [
+        {
+          "Image": "icons/actionDefaultImage",
+          "TitleAlignment": "middle",
+          "FontSize": "16"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "This action displays a value set by the user",
+      "UUID": "com.esamarathon.example.action"
+    }
+  ],
+  "Author": "zoton2",
+  "Category": "ESA Marathon",
+  "CategoryIcon": "icons/categoryIcon",
+  "CodePath": "backend.html",
+  "Description": "Example ESAMarathon plugin to be built upon.",
+  "Name": "ESAM Example",
+  "Icon": "icons/pluginIcon",
+  "URL": "https://esamarathon.com",
+  "PropertyInspectorPath": "pi.html",
+  "Version": "1.0",
+  "OS": [
+    {
+      "Platform": "mac",
+      "MinimumVersion": "10.11"
+    },
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ]
+}
