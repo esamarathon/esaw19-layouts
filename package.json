@@ -15,9 +15,26 @@
     "compatibleRange": "^1.0.0",
     "bundleDependencies": {
       "nodecg-speedcontrol": "^1.0.0"
-    }
+    },
+    "graphics": [
+      {
+        "file": "tts-donations.html",
+        "width": 1920,
+        "height": 1080,
+        "singleInstance": true
+      }
+    ],
+    "dashboardPanels": [
+      {
+        "name": "tts-donation-control",
+        "title": "TTS Donation Control",
+        "width": 3,
+        "file": "tts-donation-control.html"
+      }
+    ]
   },
   "dependencies": {
+    "request": "^2.88.0",
     "ws": "^6.1.3"
   }
 }

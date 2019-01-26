@@ -1,0 +1,7 @@
+{
+  "name": "esaw19-layouts",
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "talkify": "^2.3.0"
+  }
+}
