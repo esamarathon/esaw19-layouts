@@ -12,7 +12,7 @@
       ],
       "SupportedInMultiActions": false,
       "Tooltip": "This action displays a value set by the user",
-      "UUID": "com.esamarathon.example.action"
+      "UUID": "com.esamarathon.streamdeck.action"
     }
   ],
   "Author": "zoton2",

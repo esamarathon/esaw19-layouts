@@ -8,6 +8,7 @@ const io = require('socket.io')(server);
 
 var port = nodecg.bundleConfig.streamdeck.port;
 var sdWS;
+var buttonLocations = {};
 
 // Starting server.
 server.listen(port, 'localhost', () => {
@@ -40,6 +41,7 @@ function connectToWS(data) {
 
 	sdWS.once('open', () => {
 		nodecg.log.info('Connection to Stream Deck software successful.');
+		buttonLocations = {};
 		sdWS.send(JSON.stringify({event: data.registerEvent, uuid: data.pluginUUID}));
 	});
 
@@ -51,5 +53,22 @@ function connectToWS(data) {
 		// Some of the events that can be received are in the docs below, but I don't think this is all of them?
 		// https://developer.elgato.com/documentation/stream-deck/sdk/events-received/
 		//nodecg.log.info(data);
+		data = JSON.parse(data);
+		var event = data.event;
+		var action = data.action;
+		var context = data.context;
+		var payload = data.payload || {};
+
+		// Adjust our button locations cache when buttons are added/removed.
+		if (event === 'willAppear') {
+			var location = `${payload.coordinates.column},${payload.coordinates.row}`;
+			buttonLocations[location] = {};
+			buttonLocations[location].context = context;
+			buttonLocations[location].action = action;
+		}
+		else if (event === 'willDisappear') {
+			var location = `${payload.coordinates.column},${payload.coordinates.row}`;
+			delete buttonLocations[location];
+		}
 	});
 }
