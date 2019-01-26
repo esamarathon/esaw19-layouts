@@ -6,21 +6,28 @@ const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-var port = 1235;
+var port = nodecg.bundleConfig.streamdeck.port;
 var sdWS;
 
 // Starting server.
-server.listen(port, () => {
+server.listen(port, 'localhost', () => {
 	//nodecg.log.info('Listening on port %s.', port);
 });
 
 // Listen to connections from the Stream Deck plugin, and listen for their data on connect.
 io.on('connection', (socket) => {
-	//nodecg.log.info('Stream Deck software connected on socket.io (ID: %s).', socket.id);
-	socket.once('sdConnectSocket', data => {
-		if (sdWS) sdWS.close();
-		connectToWS(data);
-	});
+	var key = socket.handshake.query.key;
+	if (!key || key !== nodecg.bundleConfig.streamdeck.key) {
+		socket.disconnect();
+	}
+
+	else {
+		//nodecg.log.info('Stream Deck software connected on socket.io (ID: %s).', socket.id);
+		socket.once('sdConnectSocket', data => {
+			if (sdWS) sdWS.close();
+			connectToWS(data);
+		});
+	}
 });
 
 function connectToWS(data) {
