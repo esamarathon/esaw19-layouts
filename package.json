@@ -23,6 +23,36 @@
         "width": 1920,
         "height": 1080,
         "singleInstance": true
+      },
+      {
+        "file": "host-dashboard.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "omnibar.html",
+        "width": 1920,
+        "height": 80
+      },
+      {
+        "file": "transition.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "intermission.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "intermission-hosts.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "game-layout.html",
+        "width": 1920,
+        "height": 1080
       }
     ],
     "dashboardPanels": [
@@ -44,10 +74,19 @@
         "title": "Music Player",
         "width": 2,
         "file": "music-player.html"
+      },
+      {
+        "name": "game-layout-override",
+        "title": "Game Layout Override",
+        "width": 2,
+        "file": "game-layout-override.html",
+        "workspace": "Scene Editing"
       }
     ]
   },
   "dependencies": {
+    "clone": "^2.1.2",
+    "css": "^2.2.4",
     "mpd": "^1.3.0",
     "request": "^2.88.0",
     "ws": "^6.1.3"

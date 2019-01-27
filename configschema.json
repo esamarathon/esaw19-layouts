@@ -2,6 +2,19 @@
 	"$schema": "http://json-schema.org/draft-04/schema#",
 	"type": "object",
 	"properties": {
+		"obs": {
+			"type": "object",
+			"properties": {
+				"enable": {"type": "boolean", "default": true},
+				"gameLayout": {"type": "string", "default": "Game Layout"},
+				"capture1": {"type": "string", "default": "Game Capture 1"},
+				"capture2": {"type": "string", "default": "Game Capture 2"},
+				"capture3": {"type": "string", "default": "Game Capture 3"},
+				"capture4": {"type": "string", "default": "Game Capture 4"},
+				"camera1": {"type": "string", "default": "Camera Capture 1"},
+				"camera2": {"type": "string", "default": "Camera Capture 2"}
+			}
+		},
 		"mpd": {
 			"type": "object",
 			"properties": {
