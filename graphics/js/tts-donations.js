@@ -15,12 +15,7 @@ $(() => {
 			responsiveVoice.setDefaultVoice(voice);
 		});
 
-		// Test voice, triggered from the dasboard.
-		nodecg.listenFor('ttsVoiceTest', () => {
-			nodecg.sendMessage('loadURL', 'https://taskinoz.com/gdq/api', (err, resp, body) => {
-				speak(body);
-			});
-		});
+		nodecg.listenFor('ttsSpeak', speak);
 	});
 });
 

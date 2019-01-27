@@ -23,6 +23,8 @@ $(() => {
 
 	// Tell the graphic to play an example.
 	$('#voiceExample').click(() => {
-		nodecg.sendMessage('ttsVoiceTest');
+		nodecg.sendMessage('loadURL', 'https://taskinoz.com/gdq/api', (err, resp, body) => {
+			nodecg.sendMessage('ttsSpeak', body);
+		});
 	});
 });

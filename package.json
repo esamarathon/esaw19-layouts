@@ -27,7 +27,7 @@
     "dashboardPanels": [
       {
         "name": "tts-donation-control",
-        "title": "TTS Donation Control",
+        "title": "Text-To-Speech Donation Control",
         "width": 3,
         "file": "tts-donation-control.html"
       }
