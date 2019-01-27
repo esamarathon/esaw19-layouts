@@ -1,27 +1,27 @@
 {
   "Actions": [
     {
-      "Icon": "icons/actionIcon",
-      "Name": "Number Display",
+      "Name": "Twitch Ads",
       "States": [
         {
           "Image": "icons/actionDefaultImage",
           "TitleAlignment": "middle",
-          "FontSize": "16"
+          "FontSize": "9",
+          "Title": "Play\nTwitch Ad",
+          "ShowTitle": true
         }
       ],
       "SupportedInMultiActions": false,
-      "Tooltip": "This action displays a value set by the user",
-      "UUID": "com.esamarathon.streamdeck.action"
+      "Tooltip": "Switches scene, plays ads and displays countdown timer for them.",
+      "UUID": "com.esamarathon.streamdeck.twitchads"
     }
   ],
   "Author": "zoton2",
   "Category": "ESA Marathon",
   "CategoryIcon": "icons/categoryIcon",
   "CodePath": "backend.html",
-  "Description": "Example ESAMarathon plugin to be built upon.",
-  "Name": "ESAM Example",
-  "Icon": "icons/pluginIcon",
+  "Description": "Plugin with actions programmed for use at ESA Marathons.",
+  "Name": "ESA Marathon",
   "URL": "https://esamarathon.com",
   "PropertyInspectorPath": "pi.html",
   "Version": "1.0",

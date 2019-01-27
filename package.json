@@ -14,7 +14,8 @@
   "nodecg": {
     "compatibleRange": "^1.0.0",
     "bundleDependencies": {
-      "nodecg-speedcontrol": "^1.0.0"
+      "nodecg-speedcontrol": "^1.0.0",
+      "nodecg-obs-util": "^1.0.0"
     },
     "graphics": [
       {
