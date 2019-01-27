@@ -12,6 +12,7 @@ module.exports = function(nodecg) {
 	nodecg.Replicant('ttsChosenVoice');
 
 	// Other extension files we need to load.
+	require('./music');
 	require('./streamdeck');
 
 	nodecg.listenFor('loadURL', loadURL);

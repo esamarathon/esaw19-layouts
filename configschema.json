@@ -2,6 +2,15 @@
 	"$schema": "http://json-schema.org/draft-04/schema#",
 	"type": "object",
 	"properties": {
+		"mpd": {
+			"type": "object",
+			"properties": {
+				"enable": {"type": "boolean", "default": true},
+				"address": {"type": "string", "default": "localhost"},
+				"port": {"type": "integer", "default": 6600},
+				"volume": {"type": "integer", "default": 10}
+			}
+		},
 		"streamdeck": {
 			"type": "object",
 			"properties": {
