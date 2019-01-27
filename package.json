@@ -31,6 +31,19 @@
         "title": "Text-To-Speech Donation Control",
         "width": 3,
         "file": "tts-donation-control.html"
+      },
+      {
+        "name": "intermission-control",
+        "title": "Intermission Control",
+        "width": 2,
+        "file": "intermission-control.html",
+        "workspace": "Scene Editing"
+      },
+      {
+        "name": "music-player",
+        "title": "Music Player",
+        "width": 2,
+        "file": "music-player.html"
       }
     ]
   },
