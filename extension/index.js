@@ -10,6 +10,7 @@ module.exports = function(nodecg) {
 	// Doing this in an extension so we don't need to declare the options everywhere else.
 	nodecg.Replicant('ttsVoices', {defaultValue: []});
 	nodecg.Replicant('ttsChosenVoice');
+	const ttsGraphicOpen = nodecg.Replicant('ttsGraphicOpen', {defaultValue: false});
 
 	// Other extension files we need to load.
 	require('./layouts');
@@ -17,7 +18,16 @@ module.exports = function(nodecg) {
 	require('./music');
 	require('./streamdeck');
 	require('./srcom-data');
-	
+
+	// Using an internal NodeCG lib to find out when the tts-donations.html graphic is opened.
+	const registration = require('../../../lib/graphics/registration');
+	registration.on('graphicAvailable', path => {
+		if (path.includes('graphics/tts-donations.html')) ttsGraphicOpen.value = false;
+	});
+	registration.on('graphicOccupied', path => {
+		if (path.includes('graphics/tts-donations.html')) ttsGraphicOpen.value = true;
+	});
+
 	nodecg.listenFor('loadURL', loadURL);
 }
 

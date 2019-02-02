@@ -6,11 +6,16 @@
 		<script src="js/tts-donation-control.js"></script>
 
 		<style>
-			
+			#enabledSpan {
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
-		Voice: <select id="voiceOption"></select><button type="button" id="chooseVoice">Set</button>
-		<br><br><button type="button" id="voiceExample">Play Example (voice must be set first)</button>
+		<span id="disabedSpan">The <b>tts-donations.html</b> graphic must be open to use these settings.</span>
+		<span id="enabledSpan">
+			Voice: <select id="voiceOption"></select><button type="button" id="chooseVoice">Set</button>
+			<br><br><button type="button" id="voiceExample">Play Example (voice must be set first)</button>
+		</span>
 	</body>
 </html>

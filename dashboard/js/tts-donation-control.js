@@ -1,6 +1,17 @@
 $(() => {
-	var availableVoices = nodecg.Replicant('ttsVoices');
-	var chosenVoice = nodecg.Replicant('ttsChosenVoice');
+	const availableVoices = nodecg.Replicant('ttsVoices');
+	const chosenVoice = nodecg.Replicant('ttsChosenVoice');
+	const ttsGraphicOpen = nodecg.Replicant('ttsGraphicOpen', {defaultValue: false});
+
+	ttsGraphicOpen.on('change', open => {
+		if (open) {
+			$('#disabedSpan').hide();
+			$('#enabledSpan').show();
+		} else {
+			$('#disabedSpan').show();
+			$('#enabledSpan').hide();
+		}
+	});
 
 	// Compile the list of voices when the graphic tells us what is available.
 	availableVoices.on('change', voices => {
