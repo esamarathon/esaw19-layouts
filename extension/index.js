@@ -16,7 +16,8 @@ module.exports = function(nodecg) {
 	require('./emotes');
 	require('./music');
 	require('./streamdeck');
-
+	require('./srcom-data');
+	
 	nodecg.listenFor('loadURL', loadURL);
 }
 
