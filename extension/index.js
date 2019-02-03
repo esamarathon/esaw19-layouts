@@ -15,6 +15,7 @@ module.exports = function(nodecg) {
 	// Other extension files we need to load.
 	require('./layouts');
 	require('./emotes');
+	require('./tracker');
 	require('./music');
 	require('./streamdeck');
 	require('./srcom-data');
