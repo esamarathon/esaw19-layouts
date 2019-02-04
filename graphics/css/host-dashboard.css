@@ -24,7 +24,7 @@ body {
 	padding: 0 10px;
 }
 
-#donationTotalHeader, #prizesHeader, #bidsHeader, #scheduleHeader, #switchableInfoHeader {
+#donationTotalHeader, #prizesHeader, #bidsHeader, #scheduleHeader, #unReadDonationsHeader {
 	font-size: 45px;
 	text-align: center;
 }
@@ -34,11 +34,19 @@ body {
 	padding-bottom: 30px;
 }
 
-#prizesContainer, #bidsContainer, #runsContainer, #switchableInfoContainer {
+#unReadDonationsContainer {
+	font-size: 40px;
+}
+
+#unReadDonationsContainer li {
+	padding-bottom: 20px;
+}
+
+#prizesContainer, #bidsContainer, #runsContainer, #unReadDonationsContainer {
 	width: 100%;
 }
 
-.prize:first-child, .bid:first-child, .run:first-child, #switchableInfoContainer {
+.prize:first-child, .bid:first-child, .run:first-child {
 	margin-top: 10px;
 	border-top: 5px solid white;
 }
@@ -57,11 +65,6 @@ body {
 
 .bidName:after {
 	content: ':';
-}
-
-#switchableInfoContainer {
-	padding-top: 10px;
-	font-size: 40px;
 }
 
 .gameTime:before {
