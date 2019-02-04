@@ -19,7 +19,9 @@ $(() => {
 	});
 });
 
-// Speaks the text supplied with the currently selected voice.
-function speak(text) {
+// Speaks the donation supplied with the currently selected voice.
+function speak(donation) {
+	var text = `${donation.name} donated $${donation.amount.toFixed(2)}`;
+	if (donation.comment) text += `: ${donation.comment}`;
 	responsiveVoice.speak(text, chosenVoice.value, {rate: 0.8});
 }

@@ -34,8 +34,13 @@ $(() => {
 
 	// Tell the graphic to play an example.
 	$('#voiceExample').click(() => {
+		var amount = 100*Math.random();
 		nodecg.sendMessage('loadURL', 'https://taskinoz.com/gdq/api', (err, resp, body) => {
-			nodecg.sendMessage('ttsSpeak', body);
+			nodecg.sendMessage('ttsSpeak', {
+				name: 'Anonymous',
+				amount: amount,
+				comment: body
+			});
 		});
 	});
 });
