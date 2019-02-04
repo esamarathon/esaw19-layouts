@@ -39,7 +39,8 @@ $(() => {
 		currentTeamsData = [];
 
 		// For this co-op run that uses 2 screens, pretend each co-op partner is in a different team.
-		if (runData.game.toLowerCase() === 'kirby & the amazing mirror') {
+		// LEFT HERE AS AN EXAMPLE IF NEEDED THIS EVENT!
+		if (runData.game.toLowerCase() === 'Example Game That Does Not Exist') {
 			for (var i = 0; i < 2; i++) {
 				var teamData = {players: []};
 				teamData.players.push(createPlayerData(runData.teams[0].players[i]));
