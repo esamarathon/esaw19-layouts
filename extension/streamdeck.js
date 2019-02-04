@@ -9,7 +9,7 @@ const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-const donationsToRead = nodecg.Replicant('donationsToRead', {defaultValue: []});
+const donationsToRead = nodecg.Replicant('donationsToRead');
 
 var port = nodecg.bundleConfig.streamdeck.port;
 var sdWS;
@@ -98,7 +98,7 @@ nodecg.listenFor('debugSDKeyUp', (location) => {
 	onMessage({
 		action: buttonLocations[location].action,
 		context: buttonLocations[location].context,
-		event: "keyUp",
+		event: 'keyUp',
 		payload: {
 			settings: {},
 			coordinates: {

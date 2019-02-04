@@ -10,6 +10,7 @@ module.exports = function(nodecg) {
 	// Doing this in an extension so we don't need to declare the options everywhere else.
 	nodecg.Replicant('ttsVoices', {defaultValue: []});
 	nodecg.Replicant('ttsChosenVoice');
+	nodecg.Replicant('donationsToRead', {defaultValue: []});
 	const ttsGraphicOpen = nodecg.Replicant('ttsGraphicOpen', {defaultValue: false});
 
 	// Other extension files we need to load.

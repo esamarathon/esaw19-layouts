@@ -12,14 +12,16 @@ $(() => {
 	var bidHTML = $('<div class="bid"><span class="bidGame"></span><br><span class="bidName"></span></div>')
 	var runHTML = $('<div class="run"><span class="justMissed">YOU HAVE JUST WATCHED<br></span><span class="gameName"></span><br><span class="gameCategory"></span><br><span class="gameConsole"></span><br><span class="gameRunners"></span><br><span class="gameTime"></span><br><span class="gameFinal"></span></div>');
 	
-	const donationsToRead = nodecg.Replicant('donationsToRead', {defaultValue: []});
+	// Keep unread donations updated.
+	const donationsToRead = nodecg.Replicant('donationsToRead');
 	donationsToRead.on('change', newVal => {
 		unReadDonationsContainer.empty();
 		if (newVal && newVal.length && Array.isArray(newVal)) {
 			var listElem = $('<ol>');
+			// Loop through the first 3.
 			for (var i = 0; i < 3; i++) {
 				var donation = newVal[i];
-				if (!donation) break;
+				if (!donation) break; // If there isn't any more, stop.
 				var elem = $('<li>');
 				var text = `${donation.name} donated $${donation.amount.toFixed(2)}`;
 				if (donation.comment) text += `: ${donation.comment}`;
@@ -29,9 +31,7 @@ $(() => {
 			unReadDonationsContainer.append(listElem);
 		}
 		
-		else {
-			unReadDonationsContainer.text('None available.')
-		}
+		else unReadDonationsContainer.text('None available.')
 	});
 
 	// Keep donation total updated.

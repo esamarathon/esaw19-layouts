@@ -8,7 +8,7 @@ const nodecg = require('./utils/nodecg-api-context').get();
 const apiURL = 'https://donations.esamarathon.com/search';
 const apiEditURL = 'https://donations.esamarathon.com/edit';
 const refreshTime = 10000; // 10 seconds
-const donationsToRead = nodecg.Replicant('donationsToRead', {defaultValue: []});
+const donationsToRead = nodecg.Replicant('donationsToRead');
 var updateTimeout;
 
 // ID 9: Stream 1
