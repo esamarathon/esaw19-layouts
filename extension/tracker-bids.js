@@ -6,9 +6,9 @@
 const request = require('request-promise').defaults({jar: true});
 
 // Declaring other variables.
-var nodecg = require('./utils/nodecg-api-context').get();
-var apiURL = 'https://donations.esamarathon.com/search';
-var refreshTime = 60000; // Get bids every 60s.
+const nodecg = require('./utils/nodecg-api-context').get();
+const apiURL = 'https://donations.esamarathon.com/search';
+const refreshTime = 60000; // Get bids every 60s.
 
 // ID 9: Stream 1
 // ID 10: Stream 2
@@ -17,7 +17,7 @@ if (nodecg.bundleConfig.stream2)
 	eventID = 10;
 
 // Replicants.
-var bids = nodecg.Replicant('bids', {defaultValue: []});
+const bids = nodecg.Replicant('bids', {defaultValue: []});
 
 // Get the open bids from the API.
 updateBids();

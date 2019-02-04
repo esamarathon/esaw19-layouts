@@ -7,12 +7,12 @@ const request = require('request-promise').defaults({jar: true});
 const moment = require('moment');
 
 // Declaring other variables.
-var nodecg = require('./utils/nodecg-api-context').get();
-var apiURL = 'https://donations.esamarathon.com/search';
-var refreshTime = 60000; // Get prizes every 1m.
+const nodecg = require('./utils/nodecg-api-context').get();
+const apiURL = 'https://donations.esamarathon.com/search';
+const refreshTime = 60000; // Get prizes every 1m.
 
 // Replicants.
-var prizes = nodecg.Replicant('prizes', {defaultValue: []});
+const prizes = nodecg.Replicant('prizes', {defaultValue: []});
 
 // Get the prizes from the API.
 updatePrizes();
