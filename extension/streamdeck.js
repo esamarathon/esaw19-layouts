@@ -9,6 +9,8 @@ const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+const donationsToRead = nodecg.Replicant('donationsToRead', {defaultValue: []});
+
 var port = nodecg.bundleConfig.streamdeck.port;
 var sdWS;
 var buttonLocations = {};
@@ -111,9 +113,46 @@ function connectToWS(data) {
 			delete buttonLocations[location];
 		}
 
+		// Update title we have saved if it's changed.
+		if (event === 'titleParametersDidChange') {
+			var location = `${payload.coordinates.column},${payload.coordinates.row}`;
+			buttonLocations[location].title = payload.title.replace(/\n/g, ' '); // Replace returns with spaces.
+		}
+
 		// UNTESTED, I DO NOT HAVE THE HARDWARE
 		if (event === 'keyUp') {
+			var location = `${payload.coordinates.column},${payload.coordinates.row}`;
+			var title = buttonLocations[location].title;
+
+			// Button to play Twitch ads.
 			if (action === 'com.esamarathon.streamdeck.twitchads' && !twitchAdPlaying) obs.send('SetCurrentScene', {'scene-name': 'Intermission (ads)'});
+
+			// Buttons used to play TTS donations.
+			if (action === 'com.esamarathon.streamdeck.ttsdonations') {
+				// Set donation to select.
+				var donation = 0; // Title includes anything, including 1.
+				if (title.includes('2')) donation = 1;
+				else if (title.includes('3')) donation = 2;
+
+				// Find the donation and mark is as read if available.
+				var donationObj = donationsToRead.value[donation];
+				if (donationObj) {
+					nodecg.sendMessage('ttsSpeak', donation);
+					nodecg.sendMessage('markDonationAsRead', donation.id);
+				}
+			}
+
+			// Buttons used to mark donations as read.
+			if (action === 'com.esamarathon.streamdeck.donationread') {
+				// Set donation to select.
+				var donation = 0; // Title includes anything, including 1.
+				if (title.includes('2')) donation = 1;
+				else if (title.includes('3')) donation = 2;
+
+				// Find the donation and mark is as read if available.
+				var donationObj = donationsToRead.value[donation];
+				if (donationObj) nodecg.sendMessage('markDonationAsRead', donation.id);
+			}
 		}
 	});
 }

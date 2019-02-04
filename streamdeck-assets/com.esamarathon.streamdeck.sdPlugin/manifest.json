@@ -14,6 +14,36 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Switches scene, plays ads and displays countdown timer for them.",
       "UUID": "com.esamarathon.streamdeck.twitchads"
+    },
+    {
+      "Name": "TTS Donation Reading",
+      "States": [
+        {
+          "Image": "icons/actionDefaultImage",
+          "TitleAlignment": "middle",
+          "FontSize": "9",
+          "Title": "Play\nDonation",
+          "ShowTitle": true
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Tells the overlay to read out the selected donation using text-to-speech.",
+      "UUID": "com.esamarathon.streamdeck.ttsdonations"
+    },
+    {
+      "Name": "Donation Read",
+      "States": [
+        {
+          "Image": "icons/actionDefaultImage",
+          "TitleAlignment": "middle",
+          "FontSize": "9",
+          "Title": "Mark\nDonation 1\nas Read",
+          "ShowTitle": true
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Tells the tracker to mark the selected donation as have being read.",
+      "UUID": "com.esamarathon.streamdeck.donationread"
     }
   ],
   "Author": "zoton2",
