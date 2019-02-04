@@ -1,18 +1,10 @@
-/* Diagonal lines on the background. */
-.bgLines {
-	left: 777px;
-	top: 773px;
-	width: 234px;
-	height: 208px;
-}
-
 #webcam1 {
 	left: 758px;
 	top: 276px;
 	width: 404px;
 	height: 224px;
 	outline: 0;
-	box-shadow: 0 -3px 0 #ffbd16; /* Outline override. */
+	box-shadow: 0 -3px 0 #39b0f6; /* Outline override. */
 }
 
 #webcam2 {
@@ -21,7 +13,7 @@
 	width: 404px;
 	height: 224px;
 	outline: 0;
-	box-shadow: 0 3px 0 #ffbd16; /* Outline override. */
+	box-shadow: 0 3px 0 #39b0f6; /* Outline override. */
 }
 
 #playerWrapperMulti1 {

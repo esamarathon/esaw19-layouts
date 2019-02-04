@@ -1,11 +1,3 @@
-/* Diagonal lines on the background. */
-.bgLines {
-	left: 777px;
-	top: 776px;
-	width: 234px;
-	height: 208px;
-}
-
 #webcam1 {
 	left: 0px;
 	top: 502px;
@@ -96,7 +88,7 @@
 }
 
 .infoDivider {
-	border-top: 3px solid #ffbd16;
+	border-top: 3px solid #39b0f6;
 	width: 50%;
 	margin-top: 100px;
 }
