@@ -9,6 +9,7 @@ $(() => {
 		var voices = [];
 		voiceList.forEach(voice => voices.push(voice.name));
 		availableVoices.value = voices;
+		responsiveVoice.setDefaultVoice(voices[0]);
 
 		// Find the chosen voice's object for reference when we speak.
 		chosenVoice.on('change', voice => {
