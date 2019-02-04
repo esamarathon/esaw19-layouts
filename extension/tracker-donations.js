@@ -7,7 +7,7 @@ const request = require('request-promise').defaults({jar: true});
 const nodecg = require('./utils/nodecg-api-context').get();
 const apiURL = 'https://donations.esamarathon.com/search';
 const apiEditURL = 'https://donations.esamarathon.com/edit';
-const refreshTime = 100000;
+const refreshTime = 10000; // 10 seconds
 const donationsToRead = nodecg.Replicant('donationsToRead', {defaultValue: []});
 var updateTimeout;
 
@@ -18,7 +18,6 @@ if (nodecg.bundleConfig.stream2)
 	eventID = 10;
 
 nodecg.listenFor('markDonationAsRead', markDonationAsRead);
-nodecg.listenFor('updateToReadDonations', updateToReadDonations);
 
 // Get the donations still to be read from the API.
 updateToReadDonations();
@@ -72,9 +71,11 @@ function markDonationAsRead(id, callback) {
 		json: true
 	}).then(resp => {
 		nodecg.log.info(`Successfully marked donation ${id} as read.`);
+		updateToReadDonations();
 		if (callback) callback();
 	}).catch(err => {
 		nodecg.log.warn(`Error marking donation ${id} as read:`, err);
+		updateToReadDonations();
 		if (callback) callback();
 	});
 }

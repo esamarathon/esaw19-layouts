@@ -89,76 +89,92 @@ function connectToWS(data) {
 		nodecg.log.warn('Connection to Stream Deck software closed.');
 	});
 
-	sdWS.on('message', data => {
-		// Some of the events that can be received are in the docs below, but I don't think this is all of them?
-		// https://developer.elgato.com/documentation/stream-deck/sdk/events-received/
-		//nodecg.log.info(data);
-		data = JSON.parse(data);
-		var event = data.event;
-		var action = data.action;
-		var context = data.context;
-		var payload = data.payload || {};
+	sdWS.on('message', data => onMessage(JSON.parse(data)));
+}
 
-		// Adjust our button locations cache when buttons are added/removed, and set defaults.
-		if (event === 'willAppear') {
-			var location = `${payload.coordinates.column},${payload.coordinates.row}`;
-			buttonLocations[location] = {};
-			buttonLocations[location].context = context;
-			buttonLocations[location].action = action;
-
-			if (action === 'com.esamarathon.streamdeck.twitchads') updateButtonText(context, 'Play\nTwitch Ad');
-		}
-		else if (event === 'willDisappear') {
-			var location = `${payload.coordinates.column},${payload.coordinates.row}`;
-			delete buttonLocations[location];
-		}
-
-		// Update title we have saved if it's changed.
-		if (event === 'titleParametersDidChange') {
-			var location = `${payload.coordinates.column},${payload.coordinates.row}`;
-			buttonLocations[location].title = payload.title.replace(/\n/g, ' '); // Replace returns with spaces.
-		}
-
-		// UNTESTED, I DO NOT HAVE THE HARDWARE
-		if (event === 'keyUp') {
-			var location = `${payload.coordinates.column},${payload.coordinates.row}`;
-			var title = buttonLocations[location].title;
-
-			// Button to play Twitch ads.
-			if (action === 'com.esamarathon.streamdeck.twitchads' && !twitchAdPlaying) obs.send('SetCurrentScene', {'scene-name': 'Intermission (ads)'});
-
-			// Buttons used to play TTS donations.
-			if (action === 'com.esamarathon.streamdeck.ttsdonations') {
-				// Set donation to select.
-				var donation = 0; // Title includes anything, including 1.
-				if (title.includes('2')) donation = 1;
-				else if (title.includes('3')) donation = 2;
-
-				// Find the donation if available, then read it and mark it as read.
-				var donationObj = donationsToRead.value[donation];
-				if (donationObj) {
-					nodecg.sendMessage('ttsSpeak', donation);
-					nodecg.sendMessage('markDonationAsRead', donation.id);
-					nodecg.sendMessage('updateToReadDonations');
-				}
-			}
-
-			// Buttons used to mark donations as read.
-			if (action === 'com.esamarathon.streamdeck.donationread') {
-				// Set donation to select.
-				var donation = 0; // Title includes anything, including 1.
-				if (title.includes('2')) donation = 1;
-				else if (title.includes('3')) donation = 2;
-
-				// Find the donation and mark is as read if available.
-				var donationObj = donationsToRead.value[donation];
-				if (donationObj) {
-					nodecg.sendMessage('markDonationAsRead', donation.id);
-					nodecg.sendMessage('updateToReadDonations');
-				}
-			}
+// DEBUG STUFF
+// location is a string: col,row (e.g. 0,0)
+nodecg.listenFor('debugSDKeyUp', (location) => {
+	onMessage({
+		action: buttonLocations[location].action,
+		context: buttonLocations[location].context,
+		event: "keyUp",
+		payload: {
+			settings: {},
+			coordinates: {
+				column: location.split(',')[0], 
+				row: location.split(',')[1], 
+			},
+			state: 0,
+			userDesiredState: 1,
+			isInMultiAction: false
 		}
 	});
+});
+
+function onMessage(data) {
+	// Some of the events that can be received are in the docs below, but I don't think this is all of them?
+	// https://developer.elgato.com/documentation/stream-deck/sdk/events-received/
+	//console.log(data);
+	var event = data.event;
+	var action = data.action;
+	var context = data.context;
+	var payload = data.payload || {};
+
+	// Adjust our button locations cache when buttons are added/removed, and set defaults.
+	if (event === 'willAppear') {
+		var location = `${payload.coordinates.column},${payload.coordinates.row}`;
+		buttonLocations[location] = {};
+		buttonLocations[location].context = context;
+		buttonLocations[location].action = action;
+
+		if (action === 'com.esamarathon.streamdeck.twitchads') updateButtonText(context, 'Play\nTwitch Ad');
+	}
+	else if (event === 'willDisappear') {
+		var location = `${payload.coordinates.column},${payload.coordinates.row}`;
+		delete buttonLocations[location];
+	}
+
+	// Update title we have saved if it's changed.
+	if (event === 'titleParametersDidChange') {
+		var location = `${payload.coordinates.column},${payload.coordinates.row}`;
+		buttonLocations[location].title = payload.title.replace(/\n/g, ' '); // Replace returns with spaces.
+	}
+
+	if (event === 'keyUp') {
+		var location = `${payload.coordinates.column},${payload.coordinates.row}`;
+		var title = buttonLocations[location].title;
+
+		// Button to play Twitch ads.
+		if (action === 'com.esamarathon.streamdeck.twitchads' && !twitchAdPlaying) obs.send('SetCurrentScene', {'scene-name': 'Intermission (ads)'});
+
+		// Buttons used to play TTS donations.
+		if (action === 'com.esamarathon.streamdeck.ttsdonations') {
+			// Set donation to select.
+			var donation = 0; // Title includes anything, including 1.
+			if (title.includes('2')) donation = 1;
+			else if (title.includes('3')) donation = 2;
+
+			// Find the donation if available, then read it and mark it as read.
+			var donationObj = donationsToRead.value[donation];
+			if (donationObj) {
+				nodecg.sendMessage('ttsSpeak', donationObj);
+				nodecg.sendMessage('markDonationAsRead', donationObj.id);
+			}
+		}
+
+		// Buttons used to mark donations as read.
+		if (action === 'com.esamarathon.streamdeck.donationread') {
+			// Set donation to select.
+			var donation = 0; // Title includes anything, including 1.
+			if (title.includes('2')) donation = 1;
+			else if (title.includes('3')) donation = 2;
+
+			// Find the donation and mark is as read if available.
+			var donationObj = donationsToRead.value[donation];
+			if (donationObj) nodecg.sendMessage('markDonationAsRead', donationObj.id);
+		}
+	}
 }
 
 // Update button by it's context to a string.
