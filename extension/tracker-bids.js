@@ -3,7 +3,7 @@
 // https://github.com/GamesDoneQuick/agdq18-layouts/blob/master/extension/bids.js
 
 // Referencing packages.
-var request = require('request');
+const request = require('request-promise').defaults({jar: true});
 
 // Declaring other variables.
 var nodecg = require('./utils/nodecg-api-context').get();
@@ -22,16 +22,17 @@ var bids = nodecg.Replicant('bids', {defaultValue: []});
 // Get the open bids from the API.
 updateBids();
 function updateBids() {
-	request(apiURL+'/?event='+eventID+'&type=allbids&state=OPENED', (err, resp, body) => {
-		if (!err && resp.statusCode === 200) {
-			var currentBids = processRawBids(JSON.parse(body));
-			bids.value = currentBids;
-			setTimeout(updateBids, refreshTime);
-		}
-		else {
-			nodecg.log.warn('Error updating bids:', err);
-			setTimeout(updateBids, refreshTime);
-		}
+	request({
+		uri: `${apiURL}/?event=${eventID}&type=allbids&state=OPENED`,
+		resolveWithFullResponse: true,
+		json: true
+	}).then(resp => {
+		var currentBids = processRawBids(JSON.parse(body));
+		bids.value = currentBids;
+		setTimeout(updateBids, refreshTime);
+	}).catch(err => {
+		nodecg.log.warn('Error updating bids:', err);
+		setTimeout(updateBids, refreshTime);
 	});
 }
 
