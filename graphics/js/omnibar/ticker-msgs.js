@@ -27,8 +27,9 @@ var messageTypeChance = {
 	6: 2, // Donation URL message
 	7: 2, // Other stream run information
 	8: 1, // Other stream promotion
-	9: 1, // Team promotion.
-	10: 0.2 // Stay Hydrated
+	9: 1, // Team promotion
+	10: 0.2, // Stay Hydrated
+	11: 2 // Spreadshirt
 };
 
 // Choose a random index on startup.
@@ -203,23 +204,23 @@ function showTickerMessages() {
 
 	// ESA promotional message.
 	if (messageType === 4) {
-		displayMessage('<span class="textGlow">This is European Speedrunner Assembly Summer 2018</span>', null, 33, null, true);
+		displayMessage('<span class="textGlow">This is European Speedrunner Assembly Winter 2019</span>', null, 33, null, true);
 	}
 
 	// StC promotional message.
 	if (messageType === 5) {
-		displayMessage('<span class="textGlow">#ESASummer18 benefits Save the Children</span>', null, 33, null, true);
+		displayMessage('<span class="textGlow">#ESAWinter19 benefits Save the Children</span>', null, 33, null, true);
 	}
 
 	// Donation URL message.
 	if (messageType === 6) {
-		var eventShort = nodecg.bundleConfig.stream2 ? '2018s2' : '2018s1';
+		var eventShort = nodecg.bundleConfig.stream2 ? 'ESAW2019s1' : 'ESAW2019s2';
 		displayMessage(`<span class="textGlow">Donate @ <span class="greyText">donations.esamarathon.com/donate/${eventShort}</span></span>`, null, 33, null, true);
 	}
 
 	// Other stream run information.
 	if (messageType === 7) {
-		if (otherStreamInfo.value && !formPlayerNamesString(otherStreamInfo.value).toLowerCase().includes('offline')) { showOtherStreamInfo(); } else { retry = true; }
+		if (otherStreamInfo.value && !formPlayerNamesString(otherStreamInfo.value).toLowerCase().includes('sleepblock')) { showOtherStreamInfo(); } else { retry = true; }
 	}
 
 	// Other stream promotion.
@@ -236,6 +237,11 @@ function showTickerMessages() {
 	// Stay Hydrated
 	if (messageType === 10) {
 		displayMessage('<span class="textGlow">Are you remembering to stay hydrated?</span>', null, 33, null, true);
+	}
+
+	// Spreadshirt
+	if (messageType === 11) {
+		displayMessage('<span class="textGlow">Want your own ESA shirt or hoodie? Now you can @ <span class="greyText">shop.spreadshirt.se/esamarathon</span>!</span>', null, 33, null, true);
 	}
 
 	chooseRandomMessageType();
