@@ -134,11 +134,12 @@ function connectToWS(data) {
 				if (title.includes('2')) donation = 1;
 				else if (title.includes('3')) donation = 2;
 
-				// Find the donation and mark is as read if available.
+				// Find the donation if available, then read it and mark it as read.
 				var donationObj = donationsToRead.value[donation];
 				if (donationObj) {
 					nodecg.sendMessage('ttsSpeak', donation);
 					nodecg.sendMessage('markDonationAsRead', donation.id);
+					nodecg.sendMessage('updateToReadDonations');
 				}
 			}
 
@@ -151,7 +152,10 @@ function connectToWS(data) {
 
 				// Find the donation and mark is as read if available.
 				var donationObj = donationsToRead.value[donation];
-				if (donationObj) nodecg.sendMessage('markDonationAsRead', donation.id);
+				if (donationObj) {
+					nodecg.sendMessage('markDonationAsRead', donation.id);
+					nodecg.sendMessage('updateToReadDonations');
+				}
 			}
 		}
 	});

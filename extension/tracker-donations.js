@@ -9,6 +9,7 @@ const apiURL = 'https://donations.esamarathon.com/search';
 const apiEditURL = 'https://donations.esamarathon.com/edit';
 const refreshTime = 100000;
 const donationsToRead = nodecg.Replicant('donationsToRead', {defaultValue: []});
+var updateTimeout;
 
 // ID 9: Stream 1
 // ID 10: Stream 2
@@ -17,10 +18,12 @@ if (nodecg.bundleConfig.stream2)
 	eventID = 10;
 
 nodecg.listenFor('markDonationAsRead', markDonationAsRead);
+nodecg.listenFor('updateToReadDonations', updateToReadDonations);
 
 // Get the donations still to be read from the API.
 updateToReadDonations();
-function updateToReadDonations() {
+function updateToReadDonations(data) {
+	clearTimeout(updateTimeout); // Clear timeout in case this is triggered from a message.
 	request({
 		uri: `${apiURL}/?event=${eventID}&type=donation&feed=toread`,
 		resolveWithFullResponse: true,
@@ -28,10 +31,10 @@ function updateToReadDonations() {
 	}).then(resp => {
 		var currentDonations = processToReadDonations(resp.body);
 		donationsToRead.value = currentDonations;
-		setTimeout(updateToReadDonations, refreshTime);
+		updateTimeout = setTimeout(updateToReadDonations, refreshTime);
 	}).catch(err => {
 		nodecg.log.warn('Error updating to read donations:', err);
-		setTimeout(updateToReadDonations, refreshTime);
+		updateTimeout = setTimeout(updateToReadDonations, refreshTime);
 	});
 }
 
