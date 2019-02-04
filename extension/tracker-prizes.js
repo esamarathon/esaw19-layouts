@@ -22,7 +22,7 @@ function updatePrizes() {
 		resolveWithFullResponse: true,
 		json: true
 	}).then(resp => {
-		var currentPrizes = processRawPrizes(JSON.parse(body));
+		var currentPrizes = processRawPrizes(resp.body);
 		prizes.value = currentPrizes;
 		setTimeout(updatePrizes, refreshTime);
 	}).catch(err => {

@@ -1,18 +1,18 @@
 'use strict';
 
 // The bundle name where all the run information is pulled from.
-var speedcontrolBundle = 'nodecg-speedcontrol';
+const speedcontrolBundle = 'nodecg-speedcontrol';
 
 // Referencing packages.
-var cheerio = require('cheerio');
-var request = require('request-promise').defaults({jar: true}); // Automatically saves and re-uses cookies.
+const cheerio = require('cheerio');
+const request = require('request-promise').defaults({jar: true}); // Automatically saves and re-uses cookies.
 
 // Declaring other variables.
-var nodecg = require('./utils/nodecg-api-context').get();
-var statsURL1 = 'https://donations.esamarathon.com/9?json';
-var statsURL2 = 'https://donations.esamarathon.com/10?json';
-var repeaterURL = 'https://repeater.esamarathon.com';
-var loginURL = 'https://donations.esamarathon.com/admin/login/';
+const nodecg = require('./utils/nodecg-api-context').get();
+const statsURL1 = 'https://donations.esamarathon.com/9?json';
+const statsURL2 = 'https://donations.esamarathon.com/10?json';
+const repeaterURL = 'https://repeater.esamarathon.com';
+const loginURL = 'https://donations.esamarathon.com/admin/login/';
 var isFirstLogin = true;
 var stream1Total = 0;
 var stream2Total = 0;
@@ -26,9 +26,9 @@ if (nodecg.bundleConfig.stream2) {
 }
 
 // Replicants.
-var donationTotal = nodecg.Replicant('donationTotal', {defaultValue: 0});
-var recentDonations = nodecg.Replicant('recentDonations', {defaultValue: []});
-var otherStreamInfo = nodecg.Replicant('otherStreamInfo', {defaultValue: null});
+const donationTotal = nodecg.Replicant('donationTotal', {defaultValue: 0});
+const recentDonations = nodecg.Replicant('recentDonations', {defaultValue: []});
+const otherStreamInfo = nodecg.Replicant('otherStreamInfo', {defaultValue: null});
 
 if (!nodecg.bundleConfig.tracker) {
 	nodecg.log.error('You must set the tracker login details in the config file.');
@@ -74,6 +74,7 @@ function updateDontationTotalFromAPI() {
 loginToTracker().then(() => {
 	require('./tracker-bids');
 	require('./tracker-prizes');
+	require('./tracker-donations');
 });
 
 // Tracker logins expire every 2 hours. Re-login every 90 minutes.
