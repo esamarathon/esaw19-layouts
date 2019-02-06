@@ -16,7 +16,7 @@ $(() => {
 				Object.keys(voiceList).forEach(code => {
 					// Only use voices using the Wavenet tech and that are English based.
 					if (voiceList[code].languageCode.includes('en-') && code.includes('Wavenet')) {
-						voices[code] = {name: voiceList[code].name};
+						voices[code] = {name: `${voiceList[code].name} (${voiceList[code].languageName}, ${voiceList[code].gender})`};
 					}
 				});
 
