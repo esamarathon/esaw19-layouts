@@ -4,31 +4,31 @@ $(() => {
 	nodecg.listenFor('startTransition', () => {
 		// Stop any currently running animations.
 		clearTimeout(animationTimeout);
-		$('#yellow').stop();
-		$('#purple').stop();
+		$('#light').stop();
+		$('#dark').stop();
 
 		// Show the elements (in case they are hidden).
-		$('#yellow').show();
-		$('#purple').show();
+		$('#light').show();
+		$('#dark').show();
 
 		// Return images to correct positions.
-		$('#yellow').css({left: '623px', top: '1080px'});
-		$('#purple').css({left: '-623px', top: '-1080px'});
+		$('#light').css({left: '623px', top: '1080px'});
+		$('#dark').css({left: '-623px', top: '-1080px'});
 
 		// Animate lines to center.
-		$('#yellow').animate({left: '0', top: '0'}, 800);
-		$('#purple').animate({left: '0', top: '0'}, 800);
+		$('#light').animate({left: '0', top: '0'}, 800);
+		$('#dark').animate({left: '0', top: '0'}, 800);
 
 		// After a small amount of time, animate the lines off the other side.
 		animationTimeout = setTimeout(() => {
-			$('#yellow').animate({left: '-623px', top: '-1080px'}, 800);
-			$('#purple').animate({left: '623px', top: '1080px'}, 800, () => {
-				$('#yellow').removeAttr('style');
-				$('#purple').removeAttr('style');
+			$('#light').animate({left: '-623px', top: '-1080px'}, 800);
+			$('#dark').animate({left: '623px', top: '1080px'}, 800, () => {
+				$('#light').removeAttr('style');
+				$('#dark').removeAttr('style');
 				
 				// Hide the elements.
-				$('#yellow').hide();
-				$('#purple').hide();
+				$('#light').hide();
+				$('#dark').hide();
 			});
 		}, 1000);
 	});

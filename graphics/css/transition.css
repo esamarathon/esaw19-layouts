@@ -10,12 +10,12 @@ img {
 	display: none;
 }
 
-#yellow {
+#light {
 	left: 623px;
 	top: 1080px;
 }
 
-#purple {
+#dark {
 	left: -623px;
 	top: -1080px;
 }
