@@ -241,7 +241,7 @@ function showTickerMessages() {
 
 	// Spreadshirt
 	if (messageType === 11) {
-		displayMessage('<span class="textGlow">Want your own ESA shirt or hoodie? Now you can @ <span class="greyText">shop.spreadshirt.se/esamarathon</span>!</span>', null, 33, null, true);
+		displayMessage('<span class="textGlow">Want your own ESA shirt or hoodie? Order them @ <span class="greyText">shop.spreadshirt.se/esamarathon</span>!</span>', null, 33, null, true);
 	}
 
 	chooseRandomMessageType();
