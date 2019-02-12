@@ -8,6 +8,8 @@ module.exports = function(nodecg) {
 
 	// Initalising some replicants.
 	// Doing this in an extension so we don't need to declare the options everywhere else.
+	nodecg.Replicant('currentSponsorVideo', {defaultValue: {info: {}, played: false}});
+	nodecg.Replicant('sponsorVideosLastTimePlayed', {defaultValue: {}});
 	nodecg.Replicant('ttsVoices', {defaultValue: []});
 	nodecg.Replicant('ttsChosenVoice');
 	nodecg.Replicant('donationsToRead', {defaultValue: []});
@@ -18,6 +20,7 @@ module.exports = function(nodecg) {
 	require('./emotes');
 	require('./tracker');
 	require('./music');
+	require('./api');
 	require('./streamdeck');
 	require('./srcom-data');
 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<script src="../bower_components/jquery/dist/jquery.js"></script>
+		<script src="../bower_components/moment/min/moment.min.js"></script>
+		<script src="js/sponsor-video-control.js"></script>
+
+		<style>
+			#infoMsg {
+				font-weight: bold;
+				padding-bottom: 10px;
+				font-size: 14px;
+			}
+
+			#videoOption {
+				width: 85%;
+			}
+		</style>
+	</head>
+	<body>
+		<span id="infoMsg">Choose a video and click "Set" to set it as the next sponsor video that will be played. <i>Values below only apply to the currently "Set" video. "Played" will reset when "Set" is clicked.</i></span>
+		<br><br><select id="videoOption"></select>
+		<button type="button" id="chooseVideo">Set</button>
+		<br><br><b>Played:</b> <span id="hasBeenPlayed">?</span>
+		<br><b>Last Time Played:</b> <span id="lastTimePlayed">?</span>
+	</body>
+</html>

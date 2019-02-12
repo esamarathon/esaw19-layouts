@@ -40,6 +40,12 @@
         "height": 1080
       },
       {
+        "file": "sponsor-video.html",
+        "width": 1920,
+        "height": 1080,
+        "singleInstance": true
+      },
+      {
         "file": "intermission.html",
         "width": 1920,
         "height": 1080
@@ -71,6 +77,13 @@
         "workspace": "Scene Editing"
       },
       {
+        "name": "sponsor-video-control",
+        "title": "Sponsor Video Control",
+        "width": 3,
+        "file": "sponsor-video-control.html",
+        "workspace": "Scene Editing"
+      },
+      {
         "name": "music-player",
         "title": "Music Player",
         "width": 2,
@@ -90,6 +103,36 @@
         "width": 2,
         "file": "debug.html",
         "workspace": "Scene Editing"
+      }
+    ],
+    "assetCategories": [
+      {
+        "name": "sponsor-logos",
+        "title": "Sponsor Logos",
+        "allowedTypes": [
+          "jpg",
+          "jpeg",
+          "png",
+          "svg"
+        ]
+      },
+      {
+        "name": "sponsor-videos",
+        "title": "Sponsor Videos",
+        "allowedTypes": [
+          "mp4"
+        ]
+      },
+      {
+        "name": "sponsor-slides",
+        "title": "Sponsor Slide Images/Videos",
+        "allowedTypes": [
+          "jpg",
+          "jpeg",
+          "png",
+          "svg",
+          "mp4"
+        ]
       }
     ]
   },
