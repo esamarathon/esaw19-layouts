@@ -8,12 +8,14 @@ $(() => {
 	var prizesRep = nodecg.Replicant('prizes');
 	var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
 
-	var defaultRotate = 20000;
+	//var defaultRotate = 20000;
+	var defaultRotate = 5000;
 	var lastElem;
 	var rotateIndex = 0;
-	var rotateTotal = 4;
+	var rotateTotal = 5;
 	var rotateTimeout;
 	var videoEvt;
+	var nextRun;
 
 	NodeCG.waitForReplicants(slides, bidsRep, prizesRep, runDataActiveRun).then(() => {
 		refreshNextRunsData();
@@ -30,20 +32,25 @@ $(() => {
 			retry = false;
 		}
 
+		if (rotateIndex === 1 && nextRun && nextRun.esa_pbData && nextRun.esa_pbData.length) {
+			showPlayerPBs();
+			retry = false;
+		}
+
 		// Sponsor Slides
-		if (rotateIndex === 1 && slides.value.length) {
+		if (rotateIndex === 2 && slides.value.length) {
 			showSponsorSlides();
 			retry = false;
 		}
 
 		// Bids
-		if (rotateIndex === 2 && bidsRep.value.length) {
+		if (rotateIndex === 3 && bidsRep.value.length) {
 			showBids();
 			retry = false;
 		}
 
 		// Prizes
-		if (rotateIndex === 3 && prizesRep.value.length) {
+		if (rotateIndex === 4 && prizesRep.value.length) {
 			showPrizes();
 			retry = false;
 		}
@@ -61,6 +68,31 @@ $(() => {
 		lastElem = $('#rotatingComingUpRunsBox');
 		animationFadeInElement($('#rotatingComingUpRunsBox'));
 		rotateTimeout = setTimeout(rotate, defaultRotate);
+	}
+
+	function showPlayerPBs() {
+		var playerData = nextRun.esa_pbData[0];
+		var playerBox = $('#rotatingPlayerPBsBox');
+		$('.playerSRcomName', playerBox).text(playerData.name); // replace with name from schedule? or add that too?
+		$('.playerTwitch', playerBox).text(playerData.twitch); // remove if not available
+		$('.playerTwitter', playerBox).text(playerData.twitter); // remove if not available
+
+		if (playerData.pbs && playerData.pbs.length) {
+			for (var i = 0; i < 3; i++) {
+				var pb = playerData.pbs[i];
+				if (!pb) return;
+
+				$('.playerPB', playerBox).eq(i).text(`${pb.game} - ${pb.category} - ${pb.place}`);
+			}
+		}
+
+
+		console.log(playerData);
+
+		animationFadeOutElement(lastElem);
+		lastElem = $('#rotatingPlayerPBsBox');
+		animationFadeInElement($('#rotatingPlayerPBsBox'));
+		//rotateTimeout = setTimeout(rotate, defaultRotate);
 	}
 	
 	function showPrizes() {
@@ -213,7 +245,7 @@ $(() => {
 			$('#rotatingComingUpRunsBox').empty();
 	
 			if (nextRuns.length >= 1) {
-				var nextRun = nextRuns[0];
+				nextRun = nextRuns[0];
 
 				// Stuff for the string that appears at the time with an ETA.
 				whenTotal = formETAUntilRun(null, whenTotal)[1];

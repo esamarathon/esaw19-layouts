@@ -135,7 +135,7 @@
 	font-size: 30px;
 }
 
-#bidsWrapper, #prizeWrapper {
+#bidsWrapper, #prizeWrapper, #playerWrapper {
 	flex-direction: column;
 	text-align: center;
 	background-color: rgba(0,0,0,0.3);
@@ -146,7 +146,7 @@
 	margin: 20px
 }
 
-#bidsWrapper > .bidsHeader, #prizeWrapper > .prizeHeader {
+#bidsWrapper > .bidsHeader, #prizeWrapper > .prizeHeader, #playerWrapper > .playerHeader {
 	width: 100%;
 	background-color: #39b0f6;
 	color: black;
@@ -168,6 +168,16 @@
 }
 
 #bidsWrapper > .bidsAmount {
+	font-size: 35px;
+}
+
+#playerWrapper > .playerSRcomName {
+	font-size: 50px;
+}
+#playerWrapper > .playerTwitch, #playerWrapper > .playerTwitter {
+	font-size: 40px;
+}
+#playerWrapper > .playerPB {
 	font-size: 35px;
 }
 
