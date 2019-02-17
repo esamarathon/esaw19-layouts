@@ -18,10 +18,10 @@ var stream1Total = 0;
 var stream2Total = 0;
 
 // Settings for information that changes depending on the stream we're on.
-var eventShort = 'ESAW2019s1';
+var eventShort = 'esaw2019s1';
 var streamID = 1;
 if (nodecg.bundleConfig.stream2) {
-	eventShort = 'ESAW2019s2';
+	eventShort = 'esaw2019s2';
 	streamID = 2;
 }
 
@@ -105,9 +105,9 @@ repeater.on('donation', data => {
 // Triggered when the updated donation total is received.
 repeater.on('total', data => {
 	// Update the relevant variable depending on the event.
-	if (data.event === 'ESAW2019s1')
+	if (data.event === 'esaw2019s1')
 		stream1Total = parseFloat(data.new_total);
-	if (data.event === 'ESAW2019s2')
+	if (data.event === 'esaw2019s2')
 		stream2Total = parseFloat(data.new_total);
 	
 	var bothTotals = stream1Total + stream2Total;
