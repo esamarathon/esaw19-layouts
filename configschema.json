@@ -3,7 +3,7 @@
 	"type": "object",
 	"properties": {
 		"stream2": {"type": "boolean", "default": false},
-		"altTTSVoiceAPI": {"type": "string"},
+		"altTTSVoiceAPI": {"type": "string", "default": "API_URL"},
 		"obs": {
 			"type": "object",
 			"properties": {
