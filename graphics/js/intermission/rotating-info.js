@@ -8,8 +8,7 @@ $(() => {
 	var prizesRep = nodecg.Replicant('prizes');
 	var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
 
-	//var defaultRotate = 20000;
-	var defaultRotate = 5000;
+	var defaultRotate = 20000;
 	var lastElem;
 	var rotateIndex = 0;
 	var rotateTotal = 5;
@@ -32,7 +31,7 @@ $(() => {
 			retry = false;
 		}
 
-		if (rotateIndex === 1 && nextRun && nextRun.esa_pbData && nextRun.esa_pbData.length) {
+		if (false && rotateIndex === 1 && nextRun && nextRun.esa_pbData && nextRun.esa_pbData.length) {
 			showPlayerPBs();
 			retry = false;
 		}
