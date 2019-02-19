@@ -32,7 +32,6 @@ io.on('connection', (socket) => {
 	else {
 		//nodecg.log.info('Stream Deck software connected on socket.io (ID: %s).', socket.id);
 		socket.once('sdConnectSocket', data => {
-			if (sdWS) sdWS.close(); // Close current connection if one is active.
 			connectToWS(data);
 		});
 	}
@@ -66,12 +65,14 @@ function updateAdCountdown() {
 	else {
 		// Reset back to default.
 		var buttons = findButtonsWithAction('com.esamarathon.streamdeck.twitchads');
-		buttons.forEach(button => updateButtonText(button.context, 'Play\nTwitch Ad'));
+		buttons.forEach(button => updateButtonText(button.context, 'STEP 1\nTWITCH AD'));
 		twitchAdPlaying = false;
 	}
 }
 
 function connectToWS(data) {
+	if (sdWS) sdWS.close(); // Close current connection if one is active.
+	
 	sdWS = new WebSocket(`ws://localhost:${data.port}`);
 	nodecg.log.info('Connecting to Stream Deck software.');
 
@@ -85,12 +86,20 @@ function connectToWS(data) {
 		sdWS.send(JSON.stringify({event: data.registerEvent, uuid: data.pluginUUID}));
 	});
 
-	sdWS.once('close', () => {
-		nodecg.log.warn('Connection to Stream Deck software closed.');
+	sdWS.once('close', (code) => {
+		nodecg.log.warn('Connection to Stream Deck software closed (%s).', code);
+		(data => {
+			//setTimeout(() => connectToWS(data), 10000);
+		})(data);
 	});
 
 	sdWS.on('message', data => onMessage(JSON.parse(data)));
 }
+
+process.on('exit', (code) => {
+	console.log('closing websocket')
+	if (sdWS) sdWS.close(); // Close current connection if one is active.
+});
 
 // DEBUG STUFF
 // location is a string: col,row (e.g. 0,0)
@@ -128,7 +137,7 @@ function onMessage(data) {
 		buttonLocations[location].context = context;
 		buttonLocations[location].action = action;
 
-		if (action === 'com.esamarathon.streamdeck.twitchads') updateButtonText(context, 'Play\nTwitch Ad');
+		if (action === 'com.esamarathon.streamdeck.twitchads') updateButtonText(context, 'STEP 1\nTWITCH AD');
 	}
 	else if (event === 'willDisappear') {
 		var location = `${payload.coordinates.column},${payload.coordinates.row}`;
