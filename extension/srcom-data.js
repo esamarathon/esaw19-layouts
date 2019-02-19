@@ -10,7 +10,7 @@ var checkTimeout;
 // Update data if it's been over 1 hour and the run data array has been updated.
 runDataArray.on('change', runs => {
 	if (runs && runs.length && Array.isArray(runs) && (!lastChecked.value || Date.now() > lastChecked.value+3600000)) {
-		updatePBs(runs);
+		//updatePBs(runs);
 	}
 });
 
