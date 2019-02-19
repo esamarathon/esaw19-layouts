@@ -214,7 +214,7 @@ function showTickerMessages() {
 
 	// Donation URL message.
 	if (messageType === 6) {
-		var eventShort = nodecg.bundleConfig.stream2 ? 'ESAW2019s1' : 'ESAW2019s2';
+		var eventShort = nodecg.bundleConfig.stream2 ? 'esaw2019s2' : 'esaw2019s1';
 		displayMessage(`<span class="textGlow">Donate @ <span class="greyText">donations.esamarathon.com/donate/${eventShort}</span></span>`, null, 33, null, true);
 	}
 
@@ -241,7 +241,7 @@ function showTickerMessages() {
 
 	// Spreadshirt
 	if (messageType === 11) {
-		displayMessage('<span class="textGlow">Want your own ESA shirt or hoodie? Order them @ <span class="greyText">shop.spreadshirt.se/esamarathon</span>!</span>', null, 33, null, true);
+		displayMessage('<span class="textGlow">Want your own ESA shirt or hoodie? Order them @ <span class="greyText">shop.spreadshirt.net/esamarathon</span>!</span>', null, 33, null, true);
 	}
 
 	chooseRandomMessageType();
