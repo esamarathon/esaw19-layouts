@@ -2,6 +2,7 @@
 $(() => {
 	var currentVideo = nodecg.Replicant('currentSponsorVideo');
 	var lastTimePlayed = nodecg.Replicant('sponsorVideosLastTimePlayed');
+	var playCount = nodecg.Replicant('sponsorVideosPlayCount');
 	var videoPlayer = $('#videoPlayer')[0];
 	var videoSource = $('#videoSrc')[0];
 
@@ -34,6 +35,8 @@ $(() => {
 	function changeFlags() {
 		currentVideo.value.played = true;
 		lastTimePlayed.value[currentVideo.value.info.sum] = moment();
+		if (!playCount.value[currentVideo.value.info.sum]) playCount.value[currentVideo.value.info.sum] = 1;
+		else playCount.value[currentVideo.value.info.sum]++;
 		nodecg.sendMessage('sponsorVideoFinished');
 	}
 });

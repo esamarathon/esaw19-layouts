@@ -4,6 +4,7 @@ $(() => {
 	var videos = nodecg.Replicant('assets:sponsor-videos');
 	var currentVideo = nodecg.Replicant('currentSponsorVideo');
 	var lastTimePlayed = nodecg.Replicant('sponsorVideosLastTimePlayed');
+	var playCount = nodecg.Replicant('sponsorVideosPlayCount');
 	
 	// Adds the available layouts to the dropdown list.
 	videos.on('change', newVal => {
@@ -30,7 +31,7 @@ $(() => {
 	});
 
 	// Both of these replicants rely on each other here, so wait for both of them to be ready.
-	NodeCG.waitForReplicants(currentVideo, lastTimePlayed).then(() => {
+	NodeCG.waitForReplicants(currentVideo, lastTimePlayed, playCount).then(() => {
 		currentVideo.on('change', newVal => {
 			if (newVal) {
 				// Set page element that tells you if the video has been played or not.
@@ -44,6 +45,12 @@ $(() => {
 					$('#lastTimePlayed').html(moment(lastTimePlayed.value[newVal.info.sum]).format('dddd (MMMM Do) h:mm a'));
 				else
 					$('#lastTimePlayed').html('Never');
+				
+				// Change displayed "play count" if available when the video is changed.
+				if (playCount.value[newVal.info.sum])
+					$('#playCount').html(playCount.value[newVal.info.sum]);
+				else
+					$('#playCount').html('0');
 			}
 	
 			// Change the dropdown to the currently active video.
