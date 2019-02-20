@@ -51,6 +51,7 @@ const layouts = nodecg.Replicant('gameLayouts', {
 		{
 			name: 'DS 1 Player (Vertical)', code: 'ds-1p-vertical'
 		},
+		{ name: 'DS 2 Player', code: 'ds-2p', gameCaptures: 4 },
 		{
 			name: '3DS 1 Player', code: '3ds-1p', ds: true, sponsorInInfo: true, combineGameNameAndAdditional: true
 		}
