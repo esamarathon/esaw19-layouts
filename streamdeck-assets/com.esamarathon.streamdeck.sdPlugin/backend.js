@@ -1,4 +1,3 @@
-
 // Store data supplied by the "connectSocket" function.
 var connectSocketData = {
 	port: undefined,
