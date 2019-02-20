@@ -15,8 +15,11 @@ $(() => {
 	var rotateTimeout;
 	var videoEvt;
 	var nextRun;
+	var init = false;
 
 	NodeCG.waitForReplicants(slides, bidsRep, prizesRep, runDataActiveRun).then(() => {
+		if (init) return;
+		init = true;
 		refreshNextRunsData();
 		rotate();
 	});
@@ -66,6 +69,7 @@ $(() => {
 		animationFadeOutElement(lastElem);
 		lastElem = $('#rotatingComingUpRunsBox');
 		animationFadeInElement($('#rotatingComingUpRunsBox'));
+		clearTimeout(rotateTimeout);
 		rotateTimeout = setTimeout(rotate, defaultRotate);
 	}
 
@@ -112,6 +116,7 @@ $(() => {
 		animationFadeOutElement(lastElem);
 		lastElem = $('#rotatingPrizesBox');
 		animationFadeInElement($('#rotatingPrizesBox'));
+		clearTimeout(rotateTimeout);
 		rotateTimeout = setTimeout(rotate, defaultRotate);
 	}
 
@@ -154,6 +159,7 @@ $(() => {
 		animationFadeOutElement(lastElem);
 		lastElem = $('#rotatingBidsBox');
 		animationFadeInElement($('#rotatingBidsBox'));
+		clearTimeout(rotateTimeout);
 		rotateTimeout = setTimeout(rotate, defaultRotate);
 	}
 
@@ -196,10 +202,12 @@ $(() => {
 			$('#sponsorVideoPlayer > .videoSrc')[0].src = nextSponsorMedia.url;
 			$('#sponsorVideoPlayer')[0].load();
 			$('#sponsorVideoPlayer')[0].play();
+			var isPlaying = false;
 			$('#sponsorVideoPlayer')[0].addEventListener('timeupdate', videoEvt = () => { // make sure the video is *actually* playing!
 				// got to check the current time has gone beyond 0, then we know the video is *really* playing!
 				// (this might only be an issue on my laptop though, beefier PCs might not need this much).
-				if ($('#sponsorVideoPlayer')[0].currentTime <= 0) return;
+				if (isPlaying && $('#sponsorVideoPlayer')[0].currentTime <= 0) return;
+				isPlaying = true;
 
 				$('#sponsorVideoPlayer')[0].removeEventListener('timeupdate', videoEvt);
 				$('#sponsorVideoPlayer').show();
@@ -219,6 +227,7 @@ $(() => {
 				animationFadeOutElement(lastElem);
 				lastElem = $('#rotatingSponsorSlidesBox');
 				animationFadeInElement($('#rotatingSponsorSlidesBox'));
+				clearTimeout(rotateTimeout);
 				rotateTimeout = setTimeout(rotate, defaultRotate);
 			});
 		}
