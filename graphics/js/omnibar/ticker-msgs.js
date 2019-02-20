@@ -392,8 +392,21 @@ function showUpcomingRun() {
 	var line2 = '';
 
 	if (randomRun.category) line2 += `${randomRun.category}`;
-	if (randomRun.system) line2 += ` ran on ${randomRun.system}`
-	if (checkForTotalPlayers(randomRun) > 0) line2 += ` with ${formPlayerNamesString(randomRun)}`
+	if (randomRun.system) line2 += ` ran on ${randomRun.system}`;
+	if (checkForTotalPlayers(randomRun) > 0) line2 += ` with ${formPlayerNamesString(randomRun)}`;
+
+	displayMessage(line1, line2, 25, 22);
+}
+
+// Show information about the run on the other stream.
+function showOtherStreamInfo() {
+	var streamChannel = nodecg.bundleConfig.stream2 ? 'esa' : 'esamarathon2';
+	var line1 = `<span class="messageUppercase textGlow">Currently on @ twitch.tv/${streamChannel}:</span> ${otherStreamInfo.value.game}`;
+	var line2 = '';
+
+	if (otherStreamInfo.value.category) line2 += `${otherStreamInfo.value.category}`;
+	if (otherStreamInfo.value.system) line2 += ` ran on ${otherStreamInfo.value.system}`;
+	if (checkForTotalPlayers(otherStreamInfo.value) > 0) line2 += ` with ${formPlayerNamesString(otherStreamInfo.value)}`;
 
 	displayMessage(line1, line2, 25, 22);
 }
