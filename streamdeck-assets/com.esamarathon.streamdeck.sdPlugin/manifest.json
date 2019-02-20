@@ -44,6 +44,21 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Tells the tracker to mark the selected donation as have being read.",
       "UUID": "com.esamarathon.streamdeck.donationread"
+    },
+	{
+      "Name": "Toggle Timer",
+      "States": [
+        {
+          "Image": "icons/actionDefaultImage",
+          "TitleAlignment": "middle",
+          "FontSize": "9",
+          "Title": "Start\nTimer",
+          "ShowTitle": true
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Used to start and stop the timer.",
+      "UUID": "com.esamarathon.streamdeck.timer"
     }
   ],
   "Author": "zoton2",

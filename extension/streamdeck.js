@@ -121,6 +121,25 @@ nodecg.listenFor('debugSDKeyUp', (location) => {
 	});
 });
 
+var timer = nodecg.Replicant('timer', "nodecg-speedcontrol");
+timer.on('change', (newVal, oldVal) => {
+	var buttons = findButtonsWithAction('com.esamarathon.streamdeck.timer');
+	buttons.forEach(button => {
+		if (newVal.state === 'stopped') {
+			updateButtonText(button.context, 'Start\nTimer');
+		}
+		if (newVal.state === 'running') {
+			updateButtonText(button.context, 'Stop\nTimer');
+		}
+		if (newVal.state === 'paused') {
+			updateButtonText(button.context, 'Resume\nTimer');
+		}
+		if (newVal.state === 'finished') {
+			updateButtonText(button.context, 'Reset\nTimer');
+		}
+	});
+});
+
 function onMessage(data) {
 	// Some of the events that can be received are in the docs below, but I don't think this is all of them?
 	// https://developer.elgato.com/documentation/stream-deck/sdk/events-received/
@@ -138,6 +157,7 @@ function onMessage(data) {
 		buttonLocations[location].action = action;
 
 		if (action === 'com.esamarathon.streamdeck.twitchads') updateButtonText(context, 'STEP 1\nTWITCH AD');
+		if (action === 'com.esamarathon.streamdeck.timer') updateButtonText(context, 'Start\nTimer');
 	}
 	else if (event === 'willDisappear') {
 		var location = `${payload.coordinates.column},${payload.coordinates.row}`;
@@ -182,6 +202,12 @@ function onMessage(data) {
 			// Find the donation and mark is as read if available.
 			var donationObj = donationsToRead.value[donation];
 			if (donationObj) nodecg.sendMessage('markDonationAsRead', donationObj.id);
+		}
+		
+		if (action === 'com.esamarathon.streamdeck.timer') {
+			if (timer.value.state === "stopped") nodecg.sendMessageToBundle("start_run", 'nodecg-speedcontrol');
+			if (timer.value.state === "running") nodecg.sendMessageToBundle("split_timer", 'nodecg-speedcontrol', 0);
+			if (timer.value.state === "finished") nodecg.sendMessageToBundle("reset_run", 'nodecg-speedcontrol');
 		}
 	}
 }
