@@ -24,6 +24,9 @@ const speedcontrolBundle = 'nodecg-speedcontrol';
 const layouts = nodecg.Replicant('gameLayouts', {
 	defaultValue: [
 		{ name: '4:3 1 Player', code: '4_3-1p', sponsorInInfo: true },
+		{
+			name: '4:3 1 Player (Extra Space)', code: '4_3-1p-extraspace', ds: true, sponsorInInfo: true, combineGameNameAndAdditional: true
+		},
 		{ name: '4:3 2 Player', code: '4_3-2p', gameCaptures: 2 },
 		{ name: '4:3 3 Player', code: '4_3-3p', gameCaptures: 3 },
 		{ name: '4:3 4 Player', code: '4_3-4p', gameCaptures: 4 },
