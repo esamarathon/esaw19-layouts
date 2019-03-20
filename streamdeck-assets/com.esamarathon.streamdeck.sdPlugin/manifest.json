@@ -70,6 +70,7 @@
   "URL": "https://esamarathon.com",
   "PropertyInspectorPath": "pi.html",
   "Version": "1.0",
+  "SDKVersion": 2,
   "OS": [
     {
       "Platform": "mac",
@@ -79,5 +80,8 @@
       "Platform": "windows",
       "MinimumVersion": "10"
     }
-  ]
+  ],
+  "Software": {
+    "MinimumVersion": "4.1"
+  }
 }

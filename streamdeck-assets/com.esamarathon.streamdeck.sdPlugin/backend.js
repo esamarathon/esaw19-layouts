@@ -10,7 +10,7 @@ var connectSocketData = {
 var socket = io('http://localhost:1235', {query: 'key=DEFAULT_KEY'});
 
 // Triggered by the Stream Deck software.
-function connectSocket(port, pluginUUID, registerEvent, info) {
+function connectElgatoStreamDeckSocket(port, pluginUUID, registerEvent, info) {
 	connectSocketData.port = port;
 	connectSocketData.pluginUUID = pluginUUID;
 	connectSocketData.registerEvent = registerEvent;
