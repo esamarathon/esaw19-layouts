@@ -103,6 +103,13 @@
         "width": 2,
         "file": "debug.html",
         "workspace": "Scene Editing"
+      },
+      {
+        "name": "asset-chances",
+        "title": "Asset Chances",
+        "width": 3,
+        "file": "asset-chances.html",
+        "workspace": "Scene Editing"
       }
     ],
     "assetCategories": [
