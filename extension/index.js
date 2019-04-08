@@ -17,6 +17,7 @@ module.exports = function(nodecg) {
 	const ttsGraphicOpen = nodecg.Replicant('ttsGraphicOpen', {defaultValue: false});
 
 	// Other extension files we need to load.
+	require('./assets');
 	require('./layouts');
 	require('./emotes');
 	require('./tracker');
