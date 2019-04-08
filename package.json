@@ -96,13 +96,6 @@
         "width": 2,
         "file": "game-layout-override.html",
         "workspace": "Scene Editing"
-      },
-      {
-        "name": "debug",
-        "title": "DEBUG",
-        "width": 2,
-        "file": "debug.html",
-        "workspace": "Scene Editing"
       }
     ],
     "assetCategories": [
