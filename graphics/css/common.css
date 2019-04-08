@@ -56,7 +56,7 @@ body {
 }
 .playerName {
 	font-size: 30px;
-	color: black;
+	color: white;
 	margin: 0 7px !important;
 }
 .playerContainer img {height: 100%;}
