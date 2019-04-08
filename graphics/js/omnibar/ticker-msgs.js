@@ -26,7 +26,8 @@ var messageTypeChance = {
 	5: 1, // Charity promotional message
 	6: 2, // Donation URL message
 	7: 1, // Team promotion
-	8: 2 // Spreadshirt
+	8: 2, // Spreadshirt
+	9: 2 // ESA Summer 2019 Promo
 };
 
 // Choose a random index on startup.
@@ -221,6 +222,10 @@ function showTickerMessages() {
 	// Spreadshirt
 	if (messageType === 8) {
 		displayMessage('<span class="textGlow">Want your own ESA shirt or hoodie? Order them @ <span class="greyText">shop.spreadshirt.net/esamarathon</span>!</span>', null, 33, null, true);
+	}
+
+	if (messageType === 9) {
+		displayMessage('<span class="textGlow">Can\'t get enough of speedrunning? Then look forward to <span class="greyText">ESA Summer 2019</span>: 20th - 27th July!</span>', null, 32, null, true);
 	}
 
 	chooseRandomMessageType();
