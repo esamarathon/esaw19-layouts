@@ -11,11 +11,13 @@ img {
 }
 
 #light {
-	left: 623px;
-	top: 1080px;
+	left: 0px;
+	top: 0px;
+	opacity: 0;
 }
 
 #dark {
-	left: -623px;
-	top: -1080px;
+	left: 0px;
+	top: 0px;
+	opacity: 0;
 }

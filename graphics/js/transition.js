@@ -6,29 +6,20 @@ $(() => {
 		clearTimeout(animationTimeout);
 		$('#light').stop();
 		$('#dark').stop();
+		$('#light').css('opacity', '0');
+		$('#dark').css('opacity', '0');
 
-		// Show the elements (in case they are hidden).
-		$('#light').show();
-		$('#dark').show();
+		// Animate sections.
+		$('#light').fadeTo(400, 1, () => {
+			$('#dark').fadeTo(400, 1);
+		});
 
-		// Return images to correct positions.
-		$('#light').css({left: '623px', top: '1080px'});
-		$('#dark').css({left: '-623px', top: '-1080px'});
-
-		// Animate lines to center.
-		$('#light').animate({left: '0', top: '0'}, 800);
-		$('#dark').animate({left: '0', top: '0'}, 800);
-
-		// After a small amount of time, animate the lines off the other side.
+		// After a small amount of time, animate the sections off again.
 		animationTimeout = setTimeout(() => {
-			$('#light').animate({left: '-623px', top: '-1080px'}, 800);
-			$('#dark').animate({left: '623px', top: '1080px'}, 800, () => {
+			$('#light').fadeTo(800, 0);
+			$('#dark').fadeTo(800, 0, () => {
 				$('#light').removeAttr('style');
 				$('#dark').removeAttr('style');
-				
-				// Hide the elements.
-				$('#light').hide();
-				$('#dark').hide();
 			});
 		}, 1000);
 	});
