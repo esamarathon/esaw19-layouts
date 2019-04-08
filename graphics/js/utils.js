@@ -134,3 +134,13 @@ function changeVisibility(elem, isVisible) {
 		visibility: isVisible ? 'visible' : 'hidden'
 	});
 }
+
+function createAssetArrayWithChances(arr) {
+	var newArr = [];
+	arr.forEach(asset => {
+		for (var i = 0; i < asset.chance; i++) {
+			newArr.push(asset);
+		}
+	});
+	return newArr;
+}

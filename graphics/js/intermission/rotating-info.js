@@ -3,7 +3,7 @@ $(() => {
 	// The bundle name where all the run information is pulled from.
 	var speedcontrolBundle = 'nodecg-speedcontrol';
 
-	var slides = nodecg.Replicant('assets:sponsor-slides');
+	var slides = nodecg.Replicant('sponsor-slides_assets');
 	var bidsRep = nodecg.Replicant('bids');
 	var prizesRep = nodecg.Replicant('prizes');
 	var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
@@ -190,9 +190,10 @@ $(() => {
 		return null;
 	}
 
-	var sponsorIndex = 0;
 	function showSponsorSlides() {
-		var nextSponsorMedia = slides.value[sponsorIndex];
+		var array = createAssetArrayWithChances(slides.value);
+		var rand = getRandomInt(array.length);
+		var nextSponsorMedia = array[rand];
 
 		var video = (nextSponsorMedia.ext.toLowerCase() === '.mp4') ? true : false;
 		$('#sponsorVideoPlayer').hide();
@@ -230,11 +231,6 @@ $(() => {
 				clearTimeout(rotateTimeout);
 				rotateTimeout = setTimeout(rotate, defaultRotate);
 			});
-		}
-
-		sponsorIndex++;
-		if (sponsorIndex >= slides.value.length) {
-			sponsorIndex = 0;
 		}
 	}
 	
