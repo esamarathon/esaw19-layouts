@@ -54,7 +54,7 @@
 }
 
 .infoDivider {
-	border-left: 3px solid #39b0f6;
+	border-left: 3px solid #6441a4;
 	height: 50%;
 	order: -1; /* Puts the divider second in the flexbox. */
 }

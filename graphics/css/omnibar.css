@@ -49,22 +49,21 @@ img.emoji {
 .divider {
 	height: inherit;
 	width: 3px;
-	background-color: #39b0f6;
+	background-color: #6441a4;
 }
 
-/* ESA Logo */
-#esaBarLogoContainer {
+/* Event Logo */
+#eventBarLogoContainer {
 	width: 409px;
 }
-#esaBarLogoContainer #esaSmallLogo {position: absolute;}
-#esaBarLogoContainer #esaHashtagLogo {position: absolute; opacity: 0;}
+#eventBarLogoContainer #eventSmallLogo {position: absolute;}
 
 /* Donation Total */
 #donationTotalContainer {
 	font-size: 45px;
 	width: 256px;
 }
-#donationTotalContainer #stcLogo {position: absolute;}
+#donationTotalContainer #charityLogo {position: absolute;}
 #donationTotalContainer #amountText {
 	position: absolute;
 	padding-left: 80px;

@@ -10,11 +10,7 @@ const nodecg = require('./utils/nodecg-api-context').get();
 const apiURL = 'https://donations.esamarathon.com/search';
 const refreshTime = 60000; // Get bids every 60s.
 
-// ID 9: Stream 1
-// ID 10: Stream 2
-var eventID = 9;
-if (nodecg.bundleConfig.stream2)
-	eventID = 10;
+var eventID = 12;
 
 // Replicants.
 const bids = nodecg.Replicant('bids', {defaultValue: []});

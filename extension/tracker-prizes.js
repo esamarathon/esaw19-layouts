@@ -1,7 +1,5 @@
 'use strict';
 
-// Event ID 9 only is being used for prizes; all prizes are stored in stream 1's event.
-
 // Referencing packages.
 const request = require('request-promise').defaults({jar: true});
 const moment = require('moment');
@@ -18,7 +16,7 @@ const prizes = nodecg.Replicant('prizes', {defaultValue: []});
 updatePrizes();
 function updatePrizes() {
 	request({
-		uri: `${apiURL}/?event=9&type=prize&state=ACCEPTED`,
+		uri: `${apiURL}/?event=12&type=prize&state=ACCEPTED`,
 		resolveWithFullResponse: true,
 		json: true
 	}).then(resp => {

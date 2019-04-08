@@ -11,11 +11,7 @@ const refreshTime = 10000; // 10 seconds
 const donationsToRead = nodecg.Replicant('donationsToRead');
 var updateTimeout;
 
-// ID 9: Stream 1
-// ID 10: Stream 2
-var eventID = 9;
-if (nodecg.bundleConfig.stream2)
-	eventID = 10;
+var eventID = 12;
 
 nodecg.listenFor('markDonationAsRead', markDonationAsRead);
 

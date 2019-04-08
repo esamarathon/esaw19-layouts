@@ -9,26 +9,16 @@ const request = require('request-promise').defaults({jar: true}); // Automatical
 
 // Declaring other variables.
 const nodecg = require('./utils/nodecg-api-context').get();
-const statsURL1 = 'https://donations.esamarathon.com/9?json';
-const statsURL2 = 'https://donations.esamarathon.com/10?json';
+const statsURL = 'https://donations.esamarathon.com/12?json';
 const repeaterURL = 'https://repeater.esamarathon.com';
 const loginURL = 'https://donations.esamarathon.com/admin/login/';
 var isFirstLogin = true;
-var stream1Total = 0;
-var stream2Total = 0;
 
-// Settings for information that changes depending on the stream we're on.
-var eventShort = 'esaw2019s1';
-var streamID = 1;
-if (nodecg.bundleConfig.stream2) {
-	eventShort = 'esaw2019s2';
-	streamID = 2;
-}
+var eventShort = 'tceu19';
 
 // Replicants.
 const donationTotal = nodecg.Replicant('donationTotal', {defaultValue: 0});
 const recentDonations = nodecg.Replicant('recentDonations', {defaultValue: []});
-const otherStreamInfo = nodecg.Replicant('otherStreamInfo', {defaultValue: null});
 
 if (!nodecg.bundleConfig.tracker) {
 	nodecg.log.error('You must set the tracker login details in the config file.');
@@ -46,27 +36,16 @@ setInterval(updateDontationTotalFromAPI, 60000); // Also do this every 60s as a 
 // We need to add both events together to get the correct total.
 function updateDontationTotalFromAPI() {
 	var total = 0;
-	request(statsURL1, (err, resp, body) => {
+	request(statsURL, (err, resp, body) => {
 		if (!err && resp.statusCode === 200) {
 			body = JSON.parse(body);
-			var streamTotal = body.agg.amount ? parseFloat(body.agg.amount) : 0;
-			total += streamTotal;
-			stream1Total = streamTotal;
+			total += body.agg.amount ? parseFloat(body.agg.amount) : 0
 		}
 	}).then(() => {
-		request(statsURL2, (err, resp, body) => {
-			if (!err && resp.statusCode === 200) {
-				body = JSON.parse(body);
-				var streamTotal = body.agg.amount ? parseFloat(body.agg.amount) : 0;
-				total += streamTotal;
-				stream2Total = streamTotal;
-			}
-		}).then(() => {
-			if (donationTotal.value > total) return; // If total is lower, assume something went wrong.
-			if (donationTotal.value !== total)
-				nodecg.log.info('API donation total changed:', '$'+total);
-			donationTotal.value = total;
-		});
+		if (donationTotal.value > total) return; // If total is lower, assume something went wrong.
+		if (donationTotal.value !== total)
+			nodecg.log.info('API donation total changed:', '$'+total);
+		donationTotal.value = total;
 	});
 }
 
@@ -105,24 +84,10 @@ repeater.on('donation', data => {
 // Triggered when the updated donation total is received.
 repeater.on('total', data => {
 	// Update the relevant variable depending on the event.
-	if (data.event === 'esaw2019s1')
-		stream1Total = parseFloat(data.new_total);
-	if (data.event === 'esaw2019s2')
-		stream2Total = parseFloat(data.new_total);
-	
-	var bothTotals = stream1Total + stream2Total;
-	donationTotal.value = bothTotals
-	nodecg.log.info('Updated donation total received:', '$'+bothTotals.toFixed(2));
-});
-
-// Triggered when stream information changes (for either stream).
-// Also triggered on connection.
-repeater.on('streamInfo', data => {
-	// Update with the correct stream information.
-	if (streamID === 1)
-		otherStreamInfo.value = data.stream2;
-	if (streamID === 2)
-		otherStreamInfo.value = data.stream1;
+	if (data.event === eventShort) {
+		donationTotal.value = parseFloat(data.new_total);
+		nodecg.log.info('Updated donation total received:', '$'+data.new_total.toFixed(2));
+	}
 });
 
 // Triggered when data is received from the omnibar moderation website.
@@ -141,25 +106,6 @@ repeater.on('omnibarMod', data => {
 		if (data.type === 'giftsub') {}*/
 	}
 });
-
-// POSTs run data when it's changed in nodecg-speedcontrol to the server.
-if (postKey && postKey !== 'DEFAULT_KEY') {
-	var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
-	runDataActiveRun.on('change', (newVal, oldVal) => {
-		request.post({
-			url: repeaterURL+'/stream_info?key='+postKey,
-			body: JSON.stringify({
-				stream: streamID,
-				runData: newVal ? newVal : null
-			}),
-			headers: {'Content-Type': 'application/json; charset=utf-8'}
-		}).then(() => {
-			nodecg.log.info('Successfully sent new active run data to repeater server.');
-		}).catch(err => {
-			nodecg.log.warn('Failed to send new active run data to repeater server.');
-		});
-	});
-}
 
 // https://github.com/GamesDoneQuick/agdq18-layouts/blob/master/extension/index.js
 // Fetch the login page, and run the response body through cheerio

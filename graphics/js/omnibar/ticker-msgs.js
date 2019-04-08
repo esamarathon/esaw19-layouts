@@ -23,13 +23,10 @@ var messageTypeChance = {
 	2: 3, // Upcoming Run
 	3: 2, // Recent Top Donation
 	4: 1, // ESA promotional message
-	5: 1, // StC promotional message
+	5: 1, // Charity promotional message
 	6: 2, // Donation URL message
-	7: 2, // Other stream run information
-	8: 1, // Other stream promotion
-	9: 1, // Team promotion
-	10: 0.2, // Stay Hydrated
-	11: 2 // Spreadshirt
+	7: 1, // Team promotion
+	8: 2 // Spreadshirt
 };
 
 // Choose a random index on startup.
@@ -41,7 +38,6 @@ var prizesRep = nodecg.Replicant('prizes');
 prizesRep.on('change', newVal => { prizeCache = newVal; }); // Refill cache on change.
 var runDataArray = nodecg.Replicant('runDataArray', speedcontrolBundle);
 var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
-var otherStreamInfo = nodecg.Replicant('otherStreamInfo');
 
 // JQuery selectors.
 var messagesContainer; var messagesLine1; var messagesLine2; var
@@ -204,43 +200,26 @@ function showTickerMessages() {
 
 	// ESA promotional message.
 	if (messageType === 4) {
-		displayMessage('<span class="textGlow">This is European Speedrunner Assembly Winter 2019</span>', null, 33, null, true);
+		displayMessage('<span class="textGlow">This is European Speedrunner Assembly @ TwitchCon Europe 2019</span>', null, 33, null, true);
 	}
 
-	// StC promotional message.
+	// Charity promotional message.
 	if (messageType === 5) {
-		displayMessage('<span class="textGlow">#ESAWinter19 benefits Save the Children</span>', null, 33, null, true);
+		displayMessage('<span class="textGlow">ESA @ #TwitchConEU benefits The Movember Foundation</span>', null, 33, null, true);
 	}
 
 	// Donation URL message.
 	if (messageType === 6) {
-		var eventShort = nodecg.bundleConfig.stream2 ? 'esaw2019s2' : 'esaw2019s1';
-		displayMessage(`<span class="textGlow">Donate @ <span class="greyText">donations.esamarathon.com/donate/${eventShort}</span></span>`, null, 33, null, true);
-	}
-
-	// Other stream run information.
-	if (messageType === 7) {
-		if (otherStreamInfo.value && !formPlayerNamesString(otherStreamInfo.value).toLowerCase().includes('sleepblock')) { showOtherStreamInfo(); } else { retry = true; }
-	}
-
-	// Other stream promotion.
-	if (messageType === 8) {
-		var streamChannel = nodecg.bundleConfig.stream2 ? 'esa' : 'esamarathon2';
-		displayMessage(`<span class="textGlow">Watch more great runs over @ <span class="greyText">twitch.tv/${streamChannel}</span>!</span>`, null, 33, null, true);
+		displayMessage(`<span class="textGlow">Donate @ <span class="greyText">donations.esamarathon.com</span></span>`, null, 33, null, true);
 	}
 
 	// Team promotion.
-	if (messageType === 9) {
+	if (messageType === 7) {
 		displayMessage('<span class="textGlow">Check out our Twitch team @ <span class="greyText">twitch.tv/team/esa</span>!</span>', null, 33, null, true);
 	}
 
-	// Stay Hydrated
-	if (messageType === 10) {
-		displayMessage('<span class="textGlow">Are you remembering to stay hydrated?</span>', null, 33, null, true);
-	}
-
 	// Spreadshirt
-	if (messageType === 11) {
+	if (messageType === 8) {
 		displayMessage('<span class="textGlow">Want your own ESA shirt or hoodie? Order them @ <span class="greyText">shop.spreadshirt.net/esamarathon</span>!</span>', null, 33, null, true);
 	}
 
@@ -394,19 +373,6 @@ function showUpcomingRun() {
 	if (randomRun.category) line2 += `${randomRun.category}`;
 	if (randomRun.system) line2 += ` ran on ${randomRun.system}`;
 	if (checkForTotalPlayers(randomRun) > 0) line2 += ` with ${formPlayerNamesString(randomRun)}`;
-
-	displayMessage(line1, line2, 25, 22);
-}
-
-// Show information about the run on the other stream.
-function showOtherStreamInfo() {
-	var streamChannel = nodecg.bundleConfig.stream2 ? 'esa' : 'esamarathon2';
-	var line1 = `<span class="messageUppercase textGlow">Currently on @ twitch.tv/${streamChannel}:</span> ${otherStreamInfo.value.game}`;
-	var line2 = '';
-
-	if (otherStreamInfo.value.category) line2 += `${otherStreamInfo.value.category}`;
-	if (otherStreamInfo.value.system) line2 += ` ran on ${otherStreamInfo.value.system}`;
-	if (checkForTotalPlayers(otherStreamInfo.value) > 0) line2 += ` with ${formPlayerNamesString(otherStreamInfo.value)}`;
 
 	displayMessage(line1, line2, 25, 22);
 }

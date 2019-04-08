@@ -2,7 +2,6 @@
 	"$schema": "http://json-schema.org/draft-04/schema#",
 	"type": "object",
 	"properties": {
-		"stream2": {"type": "boolean", "default": false},
 		"altTTSVoiceAPI": {"type": "string", "default": "API_URL"},
 		"obs": {
 			"type": "object",
