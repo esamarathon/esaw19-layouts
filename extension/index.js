@@ -26,6 +26,7 @@ module.exports = function(nodecg) {
 	require('./streamdeck');
 	require('./srcom-data');
 	require('./twitch-ext');
+	require('./rechaaarge');
 
 	// Using an internal NodeCG lib to find out when the tts-donations.html graphic is opened.
 	const registration = require('../../../lib/graphics/registration');
