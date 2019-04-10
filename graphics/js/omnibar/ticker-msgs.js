@@ -29,7 +29,8 @@ var messageTypeChance = {
 	8: 1, // Other stream promotion
 	9: 1, // Team promotion
 	10: 0.2, // Stay Hydrated
-	11: 2 // Spreadshirt
+	11: 2, // Spreadshirt
+	12: 3 // Rechaaarge
 };
 
 // Choose a random index on startup.
@@ -42,6 +43,7 @@ prizesRep.on('change', newVal => { prizeCache = newVal; }); // Refill cache on c
 var runDataArray = nodecg.Replicant('runDataArray', speedcontrolBundle);
 var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
 var otherStreamInfo = nodecg.Replicant('otherStreamInfo');
+var rechaaargeDonationTotal = nodecg.Replicant('rechaaargeDonationTotal');
 
 // JQuery selectors.
 var messagesContainer; var messagesLine1; var messagesLine2; var
@@ -242,6 +244,17 @@ function showTickerMessages() {
 	// Spreadshirt
 	if (messageType === 11) {
 		displayMessage('<span class="textGlow">Want your own ESA shirt or hoodie? Order them @ <span class="greyText">shop.spreadshirt.net/esamarathon</span>!</span>', null, 33, null, true);
+	}
+
+	// Rechaaarge
+	if (messageType === 12) {
+		if (rechaaargeDonationTotal.value > 0) {
+			displayMessage(`<span class="textGlow">$${rechaaargeDonationTotal.value.toFixed(2)} has been donated via <span class="greyText">rechaaarge.com/esamarathon</span>: donate for free!</span>`, null, 33, null, true);
+		}
+
+		else {
+			retry = true;
+		}
 	}
 
 	chooseRandomMessageType();
