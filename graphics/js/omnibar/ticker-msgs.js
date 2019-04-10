@@ -27,7 +27,8 @@ var messageTypeChance = {
 	6: 2, // Donation URL message
 	7: 1, // Team promotion
 	8: 2, // Spreadshirt
-	9: 2 // ESA Summer 2019 Promo
+	9: 2, // ESA Summer 2019 Promo
+	10: 3 // Rechaaarge
 };
 
 // Choose a random index on startup.
@@ -39,6 +40,7 @@ var prizesRep = nodecg.Replicant('prizes');
 prizesRep.on('change', newVal => { prizeCache = newVal; }); // Refill cache on change.
 var runDataArray = nodecg.Replicant('runDataArray', speedcontrolBundle);
 var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
+var rechaaargeDonationTotal = nodecg.Replicant('rechaaargeDonationTotal');
 
 // JQuery selectors.
 var messagesContainer; var messagesLine1; var messagesLine2; var
@@ -226,6 +228,17 @@ function showTickerMessages() {
 
 	if (messageType === 9) {
 		displayMessage('<span class="textGlow">Can\'t get enough of speedrunning? Then look forward to <span class="greyText">ESA Summer 2019</span>: 20th - 27th July!</span>', null, 32, null, true);
+	}
+
+	// Rechaaarge
+	if (messageType === 10) {
+		if (rechaaargeDonationTotal.value > 0) {
+			displayMessage(`<span class="textGlow">$${rechaaargeDonationTotal.value.toFixed(2)} has been donated via <span class="greyText">rechaaarge.com/esamarathon</span>: donate for free!</span>`, null, 33, null, true);
+		}
+
+		else {
+			retry = true;
+		}
 	}
 
 	chooseRandomMessageType();
