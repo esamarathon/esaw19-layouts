@@ -208,7 +208,7 @@ function showTickerMessages() {
 
 	// Charity promotional message.
 	if (messageType === 5) {
-		displayMessage('<span class="textGlow">ESA @ #TwitchConEU benefits The Movember Foundation</span>', null, 33, null, true);
+		displayMessage('<span class="textGlow">ESA @ #TwitchCon benefits The Movember Foundation</span>', null, 33, null, true);
 	}
 
 	// Donation URL message.
