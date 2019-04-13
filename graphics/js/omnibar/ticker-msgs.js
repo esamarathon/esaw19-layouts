@@ -29,8 +29,8 @@ var messageTypeChance = {
 	8: 1, // Other stream promotion
 	9: 1, // Team promotion
 	10: 0.2, // Stay Hydrated
-	11: 2, // Spreadshirt
-	12: 3 // Rechaaarge
+	11: 2 // Spreadshirt
+	//12: 3 // Rechaaarge
 };
 
 // Choose a random index on startup.
