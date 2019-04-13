@@ -82,6 +82,15 @@ const obsSourceKeys = {
 	webcam2: obsConfig.camera2 || 'Camera Capture 2'
 };
 
+// nodecg-speedcontrol no longer sends forceRefreshIntermission so doing it here instead
+var timer = nodecg.Replicant('timer', 'nodecg-speedcontrol');
+timer.on('change', (newVal, oldVal) => {
+	// Timer just finished
+	if (oldVal && oldVal.state !== 'finished' && newVal.state === 'finished') {
+		nodecg.sendMessage('forceRefreshIntermission');
+	}
+});
+
 // Fired when the OBS WebSocket actually connects.
 obs.on('ConnectionOpened', () => {
 	// Get current scene.
