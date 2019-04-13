@@ -23,7 +23,7 @@ function connect() {
 
 	ws.once('close', (code) => {
 		nodecg.log.warn('Connection to Rechaaarge WebSocket closed (%s).', code);
-		setTimeout(connectToWS, 5000);
+		setTimeout(connect, 5000);
 	});
 
 	ws.on('message', data => onMessage(JSON.parse(data)));
