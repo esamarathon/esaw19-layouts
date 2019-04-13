@@ -86,7 +86,7 @@ repeater.on('total', data => {
 	// Update the relevant variable depending on the event.
 	if (data.event === eventShort) {
 		donationTotal.value = parseFloat(data.new_total);
-		nodecg.log.info('Updated donation total received:', '$'+data.new_total.toFixed(2));
+		nodecg.log.info('Updated donation total received:', '$'+parseFloat(data.new_total).toFixed(2));
 	}
 });
 
