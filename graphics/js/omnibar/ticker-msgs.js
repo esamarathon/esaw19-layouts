@@ -27,8 +27,8 @@ var messageTypeChance = {
 	6: 2, // Donation URL message
 	7: 1, // Team promotion
 	8: 2, // Spreadshirt
-	9: 2, // ESA Summer 2019 Promo
-	10: 3 // Rechaaarge
+	9: 2 // ESA Summer 2019 Promo
+	//10: 3 // Rechaaarge
 };
 
 // Choose a random index on startup.
